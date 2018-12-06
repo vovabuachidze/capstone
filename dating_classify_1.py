@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn import preprocessing
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
 # Can we predict sex with education level and income??
 
@@ -32,7 +33,14 @@ X = [[education_code[i], income_code[i]] for i in range(len(education_code))]
 
 classifier = KNeighborsClassifier(n_neighbors=5)
 classifier.fit(X, labels)
-test = [key for (key, value) in le_sex_mapping.items() if value == classifier.predict([[1, 1]])]
-print(test[0])
+
+guesses = classifier.predict(X)
+
+print(accuracy_score(labels, guesses))
+print(recall_score(labels, guesses))
+print(precision_score(labels, guesses))
+print(f1_score(labels, guesses))
+
+# test = [key for (key, value) in le_sex_mapping.items() if value == classifier.predict([[1, 1]])]
 
 
